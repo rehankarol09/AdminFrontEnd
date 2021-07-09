@@ -7,15 +7,12 @@ const PrivateRouter = ({ component: Component, ...rest }) => {
         const token = window.localStorage.getItem('token');
         if (token) {
             return <Component {...props} />
-
         }
         else {
-            return <Redirect to={'/Signin'} />
+            return <Redirect to={'/signin'} />
         }
-
     }}
     />
-
 }
 
 export default PrivateRouter;

@@ -6,10 +6,12 @@ const initState = {
         firstname: '',
         lastname: '',
         email: '',
-
     },
     authenthicate: false,
-    authenthicating: false
+    authenthicating: false,
+    loading: false,
+    message: "",
+    error: null
 };
 
 export default (state = initState, action) => {
@@ -21,21 +23,34 @@ export default (state = initState, action) => {
                 authenthicating: true
             }
             break;
-
         case authConstants.LOGIN_SUCCESS:
             state = {
                 ...state,
                 user: action.payload.user,
                 token: action.payload.token,
                 authenthicate: true,
-                authenthicating:false
+                authenthicating: false
             }
             break;
-        /* case authConstants.LOGIN_FAILURE:
-            state={
-                authenthicating:true,
-                ...action
-            } */
+        case authConstants.LOGOUT_REQUEST:
+            state = {
+                ...state,
+                loading: true,
+            }
+            break;
+        case authConstants.LOGOUT_SUCCESS:
+            state = {
+                ...initState,
+            }
+            break;
+        case authConstants.LOGOUT_FAILURE:
+            state = {
+                ...state,
+                loading: false,
+                error:action.payload.error
+            }
+            break;
+
     }
 
     return state;

@@ -2,9 +2,8 @@
 
 import axios from '../helpers/axios';
 import { authConstants } from "./constants";
-
 export const login = (user) => {
-    console.log(user);
+  //  console.log(user);
     return async (dispatch) => {
 
         dispatch({ type: authConstants.LOGIN_REQUEST });
@@ -54,11 +53,35 @@ export const isUserLogin = () => {
             }
             )
         }
-        else {
+     /*    else {
             dispatch({
                 type: authConstants.LOGIN_FAILURE,
                 payload: {
                     error:"Login Cannot be performed"
+                }
+            })
+        }*/
+
+    } 
+}
+
+export const signout = () =>
+{
+
+    return async (dispatch) =>{
+        const res = await axios.post('/admin/signout');
+        dispatch({type:authConstants.LOGOUT_REQUEST});
+        if(res.status === 200)
+        {
+             localStorage.clear('token');
+             dispatch({type:authConstants.LOGOUT_SUCCESS});
+
+        }
+        else{
+            dispatch({
+                type:authConstants.LOGIN_FAILURE,
+                payload:{
+                    error:res.data.error
                 }
             })
         }

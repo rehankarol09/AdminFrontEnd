@@ -1,11 +1,13 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-//import { Jumbotron } from 'react-bootstrap';
-import { Container, Form, Row, Col, Button } from 'react-bootstrap';
-import Input from '../../components/Ui/Input';
-import { useSelector } from 'react-redux';
-import {Redirect} from 'react-router-dom';
 
+import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
+import Input from '../../components/Ui/Input';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { useState } from 'react';
+import { signup } from '../../actions';
+import './style.css';
 
 /**
 * @author
@@ -14,27 +16,53 @@ import {Redirect} from 'react-router-dom';
 
 const Signup = (props) => {
 
-const auth = useSelector(state => state.auth);
+  const auth = useSelector(state => state.auth);
+  const user = useSelector(state => state.user);
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  //const[error, setError] = useState('');
+  const dispatch = useDispatch();
 
-if(auth.authenthicate){
-  <Redirect  to='/'  />
-}
+
+  const register = (e) => {
+
+    e.preventDefault();
+    const user = { firstname, lastname, email, password };
+    dispatch(signup(user));
+
+  }
+
+
+  if (auth.authenthicate) {
+    return <Redirect to='/' />
+  }
+
+
+  if (user.loading) {
+    return <Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+
+  }
 
   return (
     <div>
       <Layout>
         <Container>
-          <Row style={{ marginTop: '40px' }} >
+          {user.message}
+          <Row style={{ marginTop: '40px' ,paddingTop:"60px"}} >
             <Col md={{ span: 6, offset: 3 }}>
-              <Form>
+              <Form onSubmit={register}>
                 <Row>
                   <Col md={6}>
                     <Input
                       Label="First Name"
                       type="text"
-                      value=""
+                      value={firstname}
                       placeholder="First Name"
-                      onChange={() => { }}
+                      onChange={(e) => setFirstname(e.target.value)}
                     />
 
                   </Col>
@@ -42,9 +70,9 @@ if(auth.authenthicate){
                     <Input
                       Label="Last Name"
                       type="text"
-                      value=""
+                      value={lastname}
                       placeholder="Last Name"
-                      onChange={() => { }}
+                      onChange={(e) => { setLastname(e.target.value) }}
                     />
                   </Col>
 
@@ -53,16 +81,16 @@ if(auth.authenthicate){
                 <Input
                   Label="Email"
                   type="email"
-                  value=""
+                  value={email}
                   placeholder="Email"
-                  onChange={() => { }}
+                  onChange={(e) => { setEmail(e.target.value) }}
                 />
                 <Input
                   Label="Password"
                   type="password"
-                  value=""
+                  value={password}
                   placeholder="Password"
-                  onChange={() => { }}
+                  onChange={(e) => { setPassword(e.target.value) }}
                 />
 
                 <Button variant="primary" type="submit">

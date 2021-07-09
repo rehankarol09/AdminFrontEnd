@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, } from 'react-router-dom'
+import { signout } from '../../actions/auth.action';
 /**
 * @author
 * @function Header
@@ -11,11 +12,20 @@ const Header = (props) => {
 
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
+
+    const logout = (e) => {
+        e.preventDefault();
+
+        dispatch(signout());
+    }
+
+
+
     const renderLoggedinLinks = () => {
         return (
             <Nav>
                 <li className='nav-item'>
-                    <span  className='nav-link'>SignOut</span>
+                    <span  className='nav-link' onClick={logout}>SignOut</span>
                 </li>
             </Nav>
         );}
@@ -23,11 +33,16 @@ const Header = (props) => {
     const renderNotLoggedinLinks = () => {
         return (
             <Nav>
-                <li className='nav-item'>
-                    <NavLink to='signin' className='nav-link'>SignIn</NavLink>
+                {/* <Nav.Link href="#deets">Signin</Nav.Link> */}
+                <li className="nav-item">
+                    <NavLink exact to="/signin" className="nav-link">
+                        Signin
+                    </NavLink>
                 </li>
-                <li className='nav-item'>
-                    <NavLink to='signup' className='nav-link'>SignUp</NavLink>
+                <li className="nav-item">
+                    <NavLink to="/signup" className="nav-link">
+                        Signup
+                    </NavLink>
                 </li>
             </Nav>
         );
@@ -37,7 +52,7 @@ const Header = (props) => {
     return (
         <div>
 
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{ zIndex: "1" }}>
+            <Navbar collapseOnSelect fixed="top" expand="lg" bg="dark" variant="dark" style={{ zIndex: "1" }}>
                 <Container fluid>
                     <Link to='/' className="navbar-brand" style={{ color: '#fff', textDecoration: 'none' }}>Admin Dashboard</Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -53,4 +68,4 @@ const Header = (props) => {
 
 }
 
-export default Header
+export default Header;
