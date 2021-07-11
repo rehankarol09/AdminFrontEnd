@@ -24,9 +24,9 @@ export default (state = initState, action) => {
             break;
         case userConstants.USER_REGISTER_FAILURE:
             state = {
-                ...state,
-                loading: false,
-                error: action.payload.error
+                ...initState,
+                error:action.payload.error,
+                message:action.payload.message
             }
             break;
 

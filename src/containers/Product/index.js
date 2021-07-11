@@ -11,6 +11,8 @@ import Input from '../../components/Ui/Input';
 import { AddProducts } from '../../actions/index';
 import NewModal from '../../components/Ui/Input/Modal';
 import productReducrer from '../../reducers/product.reducrer';
+import './style.css'
+import { api, generatepublicUrl } from '../../urlConfig';
 
 const Products = (props) => {
   const dispatch = useDispatch();
@@ -30,13 +32,14 @@ const Products = (props) => {
   //Displaying Products
   const renderProducts = () => {
     return (
-      <Table responsive="sm">
+      <Table responsive="sm" style={{ fontSize: '16px'}}>
         <thead>
           <tr>
             <th>#</th>
             <th>Product Name</th>
             <th>Quantity</th>
             <th>Price</th>
+            <th>Category</th>
 
           </tr>
         </thead>
@@ -50,6 +53,7 @@ const Products = (props) => {
                   <td>{product.name}</td>
                   <td>{product.quantity}</td>
                   <td>{product.price}</td>
+                  <td>{product.category.name}</td>
                 </tr>
               )) : display()
           }
@@ -198,8 +202,41 @@ const Products = (props) => {
       >
         <Row>
           <Col md={6}>
-            <label>Product Name</label>
-            <p>{productDetails.name}</p>
+            <label className='key'>Product Name</label>
+            <p className='value'>{productDetails.name}</p>
+          </Col>
+          <Col md={6}>
+            <label className='key'>Price</label>
+            <p className='value'>{productDetails.price}</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <label className='key'>Quantity</label>
+            <p className='value'>{productDetails.quantity}</p>
+          </Col>
+          <Col md={6}>
+            <label className='key'>Category</label>
+            <p className='value'>{productDetails.category.name}</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <label className='key'>Description</label>
+            <p className='value'>{productDetails.description}</p>
+          </Col>
+        </Row>
+        <Row> 
+          <Col >
+            <label className='key'>Pictures</label>
+            <div style={{display:'flex'}}>
+              {productDetails.productpictures.map(picture =>
+                <div className="productImageContainer">
+                  <img src={generatepublicUrl(picture.img)} />
+                </div>
+              )}
+            </div>
+           
           </Col>
         </Row>
       </NewModal>

@@ -12,6 +12,7 @@ const NewModal = (props) => {
             <Modal
                 show={props.show}
                 onHide={props.handleClose}
+                size={props.size}
                 backdrop="static"
                 keyboard={false}
             >

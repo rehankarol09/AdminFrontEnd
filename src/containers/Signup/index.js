@@ -31,6 +31,10 @@ const Signup = (props) => {
     e.preventDefault();
     const user = { firstname, lastname, email, password };
     dispatch(signup(user));
+    setEmail('');
+    setPassword('');
+    setLastname('');
+    setFirstname('');
 
   }
 
@@ -47,12 +51,24 @@ const Signup = (props) => {
 
   }
 
+  const renderdisplaymessage = () =>
+  {
+      return (
+        <Row style={{marginTop:'20px'}}>
+          <Col >
+            <p>User registered Successfully</p>
+          </Col>
+        </Row>
+        
+      )
+  }
+  
+
   return (
     <div>
       <Layout>
         <Container>
-          {user.message}
-          <Row style={{ marginTop: '40px' ,paddingTop:"60px"}} >
+          <Row style={{ marginTop: '40px',paddingTop:'60px' }} >
             <Col md={{ span: 6, offset: 3 }}>
               <Form onSubmit={register}>
                 <Row>
@@ -92,13 +108,20 @@ const Signup = (props) => {
                   placeholder="Password"
                   onChange={(e) => { setPassword(e.target.value) }}
                 />
-
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
+                <Row>
+                  <Col>
+                    <Button variant="primary" type="submit">
+                      Submit
+                    </Button>
+                  </Col>
+                </Row>
+              
               </Form>
+              {user.message === "Admin created successfully" ?
+                renderdisplaymessage() : ""
+              }
             </Col>
-          </Row>
+          </Row>   
         </Container>
 
 
