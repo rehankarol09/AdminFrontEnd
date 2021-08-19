@@ -5,8 +5,8 @@ const initState = {
     message: '',
     loading: false,  
 }
-export default (state = initState, action) => {
-   // console.log(action);
+const userreducer = (state = initState, action) => {
+   
     switch (action.type) {
         case userConstants.USER_REGISTER_REQUEST:
             state = {
@@ -29,7 +29,10 @@ export default (state = initState, action) => {
                 message:action.payload.message
             }
             break;
+        default:
 
     }
     return state;
 }
+
+export default userreducer;

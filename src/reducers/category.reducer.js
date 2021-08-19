@@ -9,7 +9,7 @@ const initState = {
 const buildNewCategories = (parentId, categories, category) => {
     let myCategories = [];
 
-    if (parentId == undefined) {
+    if (parentId === undefined) {
         return [
             ...categories,
             {
@@ -43,32 +43,24 @@ const buildNewCategories = (parentId, categories, category) => {
                 children: cat.children ? buildNewCategories(parentId, cat.children, category) : []
             });
         }
-
-
     }
-
-
     return myCategories;
 }
 
-export default (state = initState, action) => {
+const categoryreducers = (state = initState, action) => {
     switch (action.type) {
         case categoryConstants.Category_Get_Request:
-            {
-                state = {
-                    ...initState,
-                    loading: true
-                }
+            state = {
+                ...initState,
+                loading: true
             }
             break;
 
         case categoryConstants.Category_Get_Sucess:
-            {
-                state = {
-                    ...state,
-                    loading: false,
-                    categories: action.payload.categories
-                }
+            state = {
+                ...state,
+                loading: false,
+                categories: action.payload.categories
             }
             break;
 
@@ -81,12 +73,11 @@ export default (state = initState, action) => {
 
         case categoryConstants.ADD_NEWCATEGORY_SUCCESS:
             const category = action.payload.category;
-            const updatedCategories = buildNewCategories(category.parentId, state.categories,category);
+            const updatedCategories = buildNewCategories(category.parentId, state.categories, category);
             state = {
                 ...state,
                 categories: updatedCategories,
                 loading: false,
-                
             }
             break;
 
@@ -96,6 +87,45 @@ export default (state = initState, action) => {
                 error: action.payload.error
             }
             break;
+        case categoryConstants.UPDATE_CATEGORY_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case categoryConstants.UPDATE_CATEGORY_SUCCESS:
+            state = {
+                ...state,
+                loading: false
+            }
+            break;
+        case categoryConstants.UPDATE_CATEGORY_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORY_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORY_SUCCESS:
+            state = {
+                ...state,
+                loading: false
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORY_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error
+            }
+            break;
+        default:
     }
     return state;
 }
+
+export default categoryreducers;

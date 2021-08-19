@@ -1,18 +1,13 @@
-/**
-* @author
-* @function Product
-**/
 
 import React, { useState } from 'react';
 import Layout from '../../components/Layout';
-import { Modal, Container, Row, Col, Button, Table } from 'react-bootstrap';
+import {  Container, Row, Col, Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Input from '../../components/Ui/Input';
 import { AddProducts } from '../../actions/index';
 import NewModal from '../../components/Ui/Input/Modal';
-import productReducrer from '../../reducers/product.reducrer';
 import './style.css'
-import { api, generatepublicUrl } from '../../urlConfig';
+import {  generatepublicUrl } from '../../urlConfig';
 
 const Products = (props) => {
   const dispatch = useDispatch();
@@ -27,12 +22,13 @@ const Products = (props) => {
   const [show, setShow] = useState(false);
   const [productDetailModal, setProductDetailModal] = useState(false);
   const [productDetails, setProductDetail] = useState(null);
+  //const {...others} = props;
 
 
   //Displaying Products
   const renderProducts = () => {
     return (
-      <Table responsive="sm" style={{ fontSize: '16px'}}>
+      <Table responsive="sm" style={{ fontSize: '16px'},{marginTop:'15px'}}>
         <thead>
           <tr>
             <th>#</th>
@@ -55,7 +51,7 @@ const Products = (props) => {
                   <td>{product.price}</td>
                   <td>{product.category.name}</td>
                 </tr>
-              )) : display()
+              )) :[]
           }
         </tbody>
       </Table>
@@ -63,18 +59,43 @@ const Products = (props) => {
   }
 
   //Displaying no product display message
-  const display = () => {
-    return (
-      <div>
-        <p>No Products to display</p>
-      </div>
-    )
-  }
-
+  
   //Add Product Modal
 
   //handle close
   const handleClose = () => {
+   if(name === '')
+   {
+     alert("Name is Required");
+     return;
+   }
+
+   if(description === '')
+   {
+     alert("description is Required");
+     return;
+   }
+   if(quantity === '')
+   {
+     alert("quantity is Required");
+     return;
+   }
+   if(price === '')
+   {
+     alert("price is Required");
+     return;
+   }
+   if(categoryId === '')
+   {
+     alert("Type is Required");
+     return;
+   }
+
+   if(productpicture === '')
+   {
+     alert("Image is Required");
+     return;
+   }
     const form = new FormData();
     form.append('name', name);
     form.append('description', description);
@@ -120,6 +141,7 @@ const Products = (props) => {
     setProductpictures([...productpicture, e.target.files[0]]);
   };
 
+  const handleclose = () => setShow(false)
 
   //Modal
   const renderAddProductModal = () => {
@@ -127,8 +149,10 @@ const Products = (props) => {
       <NewModal
         show={show}
         handleClose={handleClose}
-        ModalTitle={"Add New Product"}
+        modaltitle={"Add New Product"}
         size={'md'}
+        handleclose={handleclose}
+        
       >
         <Input
           placeholder="Product Name"
@@ -172,6 +196,15 @@ const Products = (props) => {
             <option key={options.value} value={options.value}>{options.name}</option>
           )}
         </select>
+
+        {/* <Input
+          type={'select'}
+          placeholder={"Select category"}
+          onChange={e => setCategorydId(e.target.value)}
+          value={categoryId}
+          options={category.categories}
+        /> */}
+
         {productpicture.length > 0 ?
           productpicture.map((pic, index) => (
             <div key={index}>{pic.name}</div>
@@ -180,7 +213,7 @@ const Products = (props) => {
           : []
         }
 
-        <input type="file" name="productpicture" onChange={handleProductPictures} />
+        <input type="file" name="productpicture" onChange={handleProductPictures} required={true} />
       </NewModal>
     );
   }
@@ -188,6 +221,9 @@ const Products = (props) => {
 
   // Product Details Modal
   //Modal
+
+  const handleclosedetailmodal = () => setProductDetailModal(false);
+
   const renderproductDetailModal = () => {
     if (!productDetails) {
       return null;
@@ -197,8 +233,10 @@ const Products = (props) => {
       <NewModal
         show={productDetailModal}
         handleClose={handlecloseproductdetailModal}
-        ModalTitle={"Product Details"}
+        modaltitle={"Product Details"}
         size={'lg'}
+        handleclose={handleclosedetailmodal}
+        
       >
         <Row>
           <Col md={6}>
@@ -230,13 +268,12 @@ const Products = (props) => {
           <Col >
             <label className='key'>Pictures</label>
             <div style={{display:'flex'}}>
-              {productDetails.productpictures.map(picture =>
-                <div className="productImageContainer">
-                  <img src={generatepublicUrl(picture.img)} />
+              {productDetails.productpictures.map((picture,index) =>
+                <div className="productImageContainer" key={index}>
+                  <img className="img-responsive"  src={generatepublicUrl(picture.img)} alt="" />
                 </div>
               )}
-            </div>
-           
+            </div>          
           </Col>
         </Row>
       </NewModal>

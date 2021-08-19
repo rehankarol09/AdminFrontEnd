@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, } from 'react-router-dom'
-import { signout } from '../../actions/auth.action';
+import { signout } from '../../actions';
 /**
 * @author
 * @function Header
@@ -15,11 +15,8 @@ const Header = (props) => {
 
     const logout = (e) => {
         e.preventDefault();
-
         dispatch(signout());
     }
-
-
 
     const renderLoggedinLinks = () => {
         return (
@@ -33,7 +30,6 @@ const Header = (props) => {
     const renderNotLoggedinLinks = () => {
         return (
             <Nav>
-                {/* <Nav.Link href="#deets">Signin</Nav.Link> */}
                 <li className="nav-item">
                     <NavLink exact to="/signin" className="nav-link">
                         Signin

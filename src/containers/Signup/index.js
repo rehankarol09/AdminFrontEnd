@@ -1,6 +1,5 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-
 import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
 import Input from '../../components/Ui/Input';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,10 +8,7 @@ import { useState } from 'react';
 import { signup } from '../../actions';
 import './style.css';
 
-/**
-* @author
-* @function Signup
-**/
+
 
 const Signup = (props) => {
 
@@ -22,7 +18,6 @@ const Signup = (props) => {
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //const[error, setError] = useState('');
   const dispatch = useDispatch();
 
 
@@ -74,7 +69,7 @@ const Signup = (props) => {
                 <Row>
                   <Col md={6}>
                     <Input
-                      Label="First Name"
+                      label="First Name"
                       type="text"
                       value={firstname}
                       placeholder="First Name"
@@ -84,7 +79,7 @@ const Signup = (props) => {
                   </Col>
                   <Col md={6}>
                     <Input
-                      Label="Last Name"
+                      label="Last Name"
                       type="text"
                       value={lastname}
                       placeholder="Last Name"
@@ -95,14 +90,14 @@ const Signup = (props) => {
 
                 </Row>
                 <Input
-                  Label="Email"
+                  label="Email"
                   type="email"
                   value={email}
                   placeholder="Email"
                   onChange={(e) => { setEmail(e.target.value) }}
                 />
                 <Input
-                  Label="Password"
+                  label="Password"
                   type="password"
                   value={password}
                   placeholder="Password"

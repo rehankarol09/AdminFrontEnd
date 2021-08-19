@@ -5,7 +5,7 @@ export const signup = (user) => {
 
     return async (dispatch) => {
         dispatch({ type: userConstants.USER_REGISTER_REQUEST });
-        const res = await axios.post('/admin/signup',{...user});
+        const res = await axios.post('/admin/signup', { ...user });
         const { message } = res.data;
 
         if (res.status === 201) {
@@ -16,18 +16,16 @@ export const signup = (user) => {
                 }
             });
         }
-
         else {
-             if(res.status === 400)
-             {
-            dispatch({
-                type: userConstants.USER_REGISTER_FAILURE,
-                payload: {
-                    error: res.data.error,
-                    message
-                }
-            });
-        }
+            if (res.status === 400) {
+                dispatch({
+                    type: userConstants.USER_REGISTER_FAILURE,
+                    payload: {
+                        error: res.data.error,
+                        message
+                    }
+                });
+            }
         }
     }
 }

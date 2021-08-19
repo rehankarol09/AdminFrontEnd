@@ -1,0 +1,27 @@
+.modal-header{
+    padding: 5px 15px;
+    background-color: #333;
+}
+
+.modal-title{
+    font-size: 18px;
+    color:#fff
+}
+
+.modal-footer{
+    padding: 5px 15px;
+}
+
+.actionbtncontainer{
+    display: flex;
+    align-items: center;  
+}
+
+.actionbtncontainer >button{
+    margin: 0px 10px;
+    border:0;
+    font-size: 17px;
+}
+.actionbtncontainer >button:hover{
+    color:red;
+}

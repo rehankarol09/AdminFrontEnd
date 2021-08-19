@@ -14,7 +14,7 @@ const initState = {
     error: null
 };
 
-export default (state = initState, action) => {
+const authreducers = (state = initState, action) => {
     console.log(action);
     switch (action.type) {
         case authConstants.LOGIN_REQUEST:
@@ -50,8 +50,12 @@ export default (state = initState, action) => {
                 error:action.payload.error
             }
             break;
+        default:
 
     }
 
     return state;
 }
+
+
+export default authreducers;

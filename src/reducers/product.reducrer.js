@@ -2,9 +2,11 @@ import {productConstants} from '../actions/constants';
 
 const initState ={
 products:[]
-
 }
-export default (state=initState,action) =>
+
+
+
+const productreducer = (state=initState,action) =>
 {
     switch(action.type)
     {
@@ -12,6 +14,10 @@ export default (state=initState,action) =>
             state={
                 products:action.payload.products
             }
+        break;
+        default:
     }
     return state;
 }
+
+export default productreducer;

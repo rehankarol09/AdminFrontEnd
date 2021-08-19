@@ -7,16 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 
-/**
-* @author
-* @function Signin
-**/
-
 const Signin = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //const [error, SetError] = useState('');
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
 
@@ -26,7 +20,8 @@ const Signin = (props) => {
     e.preventDefault();
 
     const user = {
-      email, password
+      email, 
+      password
     }
 
     dispatch(login(user));
@@ -44,14 +39,14 @@ const Signin = (props) => {
             <Col md={{ span: 6, offset: 3 }}>
               <Form onSubmit={Userlogin}>
                 <Input
-                  Label="Email"
+                  label="Email"
                   type="email"
                   value={email}
                   placeholder="Email"
                   onChange={(e) =>setEmail(e.target.value)}
                 />
                 <Input
-                  Label="Password"
+                  label="Password"
                   type="password"
                   value={password}
                   placeholder="Password"
